@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Present Registry</title>
+  </head>
+  <body style ="background-color:ivory">
+    <div class="container-fluid" id="app">
+      <div class="jumbotron jumbotron-fluid bg-transparent text-center">
+        <h1>Present Registry</h1>
+        <p><em>By Robert Matthew Laskey and Jeremie Marc Pelletier</em></p>
+      <div v-if="!authenticated" class="form-group text-center">
+        <input class="col-4 mx-auto form-control" type="text" name="username" v-model="input.username" placeholder="Username" />
+        <input class="col-4 mx-auto form-control" type="password" name="password" v-model="input.password" placeholder="Password" />
+        <button style="background-color:whitesmoke" class="col-4 btn btn-outline-success" type="button" v-on:click="login()">Login</button>
+      </div>
+      <div v-else class="text-center">
+        <li>
+        <button style="background-color:whitesmoke" type="button" class="btn btn-outline-danger" v-on:click="logout()">Logout</button>
+
+        <div class="container">
+        <button style="margin:5px;" type="button" class="btn btn-info" data-toggle="collapse" data-target="#users">Search Users:</button>
+          <div id="users" class="collapse">
+            <p>
+              <button style="background-color:whitesmoke" type="button" class="btn btn-outline-primary" v-on:click="getUsers()">List All Users</button>
+            </p><p>
+              <input type ="text" id = "userNameSearch" name ="userName" v-model="user.userName" placeholder="NameSearch">
+                
+              <input style="background-color:whitesmoke" class="btn btn-outline-secondary" type="button" value ="submit" v-on:click="getUserByName()">
+            </p>
+            <input type ="number" id = "userIdSearch" name ="userIdSearch" v-model="user.userid" placeholder="IdSearch">
+            <input style="background-color:whitesmoke" class="btn btn-outline-secondary" type="button"value ="submit" v-on:click="getUserById()">     
+          </div>      
+        </div>
+        <div class="container">	
+          <button style="margin:5px;" type="button" class="btn btn-info" data-toggle="collapse" data-target="#presents">Search Presents:</button>
+          <div id="presents" class="collapse">
+            <p>
+              <button style="background-color:whitesmoke" type="button" class="btn btn-outline-primary" v-on:click="getPresents()">List Presents</button>
+	    </p><p>
+              <input type ="text" id = "presentNameSearch" name ="presentNameSearch" v-model="present.presentName" placeholder="NameSearch">
+              <input style="background-color:whitesmoke" class="btn btn-outline-secondary" type="button" value ="submit" v-on:click="getPresentByName()">
+            </p><p>
+              <input type ="number" id = "presentIdSearch" name ="presentIdSearch" v-model="present.presentId" placeholder="IdSearch">
+              <input style="background-color:whitesmoke" class="btn btn-outline-secondary" type="button" value ="submit" v-on:click="getPresentById()">
+            </p><p>
+              <input type ="number" id = "presentuIdSearch" name ="presentuIdSearch" v-model="present.presentUserId" placeholder="uIdSearch">
+              <input style="background-color:whitesmoke" class="btn btn-outline-secondary" type="button" value ="submit" v-on:click="getPresentsByUser()">
+            </p>
+            <input type ="number" id = "presentPriceSearch" name ="presentPriceSearch" v-model="present.presentPrice" placeholder="priceSearch">
+            <input style="background-color:whitesmoke" class="btn btn-outline-secondary" type="button" value ="submit" v-on:click="getPresentByPrice()">
+	  </div>
+        </div>
+        <div class="container">
+          <button style="margin:5px;" type="button" class="btn btn-info" data-toggle="collapse" data-target="#add">Add Present:</button>
+          <div id="add" class="collapse">
+            <p>
+	      <input type ="text" id = "presentName" name ="presentName" v-model="presentAdd.presentName" placeholder="Enter present name">
+            </p><p>
+              <input type ="text" id = "presentDesc" name ="presentDesc" v-model="presentAdd.presentDesc" placeholder="Enter description">
+            </p><p>
+              <input type ="number" id = "presentPriceSearch" name ="presentPriceAdd" v-model="presentAdd.presentPrice" placeholder="Enter price">
+	    </p>
+            <input style="background-color:whitesmoke" class="btn btn-outline-primary" type="button" value ="add present" v-on:click="addPresent()">
+          </div>
+        </div>
+        <div class="container">
+          <button style="margin:5px;" type="button" class="btn btn-info" data-toggle="collapse" data-target="#update">Update Present:</button>
+          <div id="update" class="collapse">
+            <p>
+              <input type ="text" id = "presentNameUp" name ="presentNameUp" v-model="presentUpdate.presentNameUp" placeholder="Enter present name">
+            </p><p>
+              <input type ="text" id = "presentDescUp" name ="presentDescUp" v-model="presentUpdate.presentDescUp" placeholder="Enter description">
+            </p><p>
+              <input type ="number" id = "presentPriceUp" name ="presentPriceUp" v-model="presentUpdate.presentPriceUp" placeholder="Enter price">
+            </p><p>
+	      <input type ="number" id = "presentIdUp" name ="presentIdUp" v-model="presentUpdate.presentIdUp" placeholder="Id to update">
+            </p>
+	    <input style="background-color:whitesmoke" class="btn btn-outline-primary" type="button" value ="update present" v-on:click="updatePresent()">
+          </div>
+        </div>
+        <div class="container">
+          <button style="margin:5px;" type="button" class="btn btn-info" data-toggle="collapse" data-target="#delpresents">Delete Present:</button>
+          <div id="delpresents" class="collapse">
+            <p>
+              <input type ="number" id = "presentDelete" name ="presentDelete" v-model="presentDelete.presentId" placeholder="Enter present id">
+            </p>
+            <input style="background-color:whitesmoke" class="btn btn-outline-primary" type="button" value ="submit" v-on:click="removePresent()">
+          </div>
+        </div>
+        <div class="container">
+          <button style="margin:5px;" type="button" class="btn btn-info" data-toggle="collapse" data-target="#delu">Delete User:</button>
+          <div id="delu" class="collapse">
+            <p>
+              <input type ="number" id = "userDelete" name ="userDelete" v-model="userDelete.userId" placeholder="Enter user id">
+            </p>
+           <input style="background-color:whitesmoke" class="btn btn-outline-primary" type="button" value ="submit" v-on:click="removeUser()">
+         </div>
+       </div>
+      </div>
+    </div>
+   <div v-if="authenticated">
+      <div v-if="userData != null" id="userList">
+	<p>User Results:</p>
+        <ul class="list-group">
+          <div v-for="user in userData">
+            <li class ="list-group-item list-group-item-primary" class="list-group-item col-7 mx-auto">
+              <div class="d-flex w-100 justify-content-between">
+                UserId: {{user.userId}}, UserName: {{user.userName}} 
+              </div>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+    <div v-if="authenticated">
+      <div v-if="presentData != null" id="presentList">
+        <p>Present Results:</p>
+        <ul class="list-group">
+          <div v-for="present in presentData">
+            <li class ="list-group-item list-group-item-secondary" class="list-group-item col-7 mx-auto">
+              <div class="d-flex w-100 justify-content-between">
+                PresentId: {{present.presentId}}, UserId: {{present.userId}}, Present Name: {{present.presentName}}, Present Description: ({{present.presentDesc}}), Present Price: {{present.presentPrice}}
+              </div>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/static/project.js" ></script>
+</body>
+</html>

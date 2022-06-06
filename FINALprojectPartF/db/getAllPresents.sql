@@ -1,0 +1,14 @@
+DELIMITER //
+DROP PROCEDURE IF EXISTS getAllPresents;
+
+
+
+CREATE PROCEDURE getAllPresents()
+BEGIN
+SELECT *
+FROM presents;
+
+
+
+END //
+DELIMITER ;

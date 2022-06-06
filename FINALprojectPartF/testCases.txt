@@ -1,0 +1,46 @@
+curl -i -X POST -H "Content-Type: application/json" -d '{"username":"UNB_USERNAMEHERE", "password":"UNB_PASSWORDHERE"}' -c cookie-jar -k https://cs3103.cs.unb.ca:37426/signin
+
+curl -i -H "Content-Type: application/json" -X GET -b cookie-jar -k https://cs3103.cs.unb.ca:37426/presents
+
+curl -i -H "Content-Type: application/json" -X GET -b cookie-jar -k https://cs3103.cs.unb.ca:37426/presents/2
+
+curl -i -H "Content-Type: application/json" -X GET -b cookie-jar -k https://cs3103.cs.unb.ca:37426/present/2
+
+curl -i -H "Content-Type: application/json" -X GET -b cookie-jar -k https://cs3103.cs.unb.ca:37426/present/2500.0
+
+curl -i -H "Content-Type: application/json" -X GET -b cookie-jar -k https://cs3103.cs.unb.ca:37426/presents/ashirt
+
+curl -i -X POST -H "Content-Type: application/json" -d '{"presentName":"testp", "presentDesc":"testDesc", "presentPrice":1}' -b cookie-jar -k https://cs3103.cs.unb.ca:37426/present/3
+
+curl -i -X POST -H "Content-Type: application/json" -d '{"presentName":"updated", "presentDesc":"updatedDesc", "presentPrice":2}' -b cookie-jar -k https://cs3103.cs.unb.ca:37426/presents/5
+
+*The above command will only work when the one preceding it adds another present to the database, thus there can be a present with an id of 5*
+
+curl -i -H "Content-Type: application/json" -X GET -b cookie-jar -k https://cs3103.cs.unb.ca:37426/users
+
+curl -i -H "Content-Type: application/json" -X GET -b cookie-jar -k https://cs3103.cs.unb.ca:37426/users/2
+
+curl -i -H "Content-Type: application/json" -X GET -b cookie-jar -k https://cs3103.cs.unb.ca:37426/users/rlaskey
+
+curl -i -X POST -H "Content-Type: application/json" -d '{"Name":"example"}' -b cookie-jar -k https://cs3103.cs.unb.ca:37426/users
+
+curl -i -H "Content-Type: application/json" -X DELETE -b cookie-jar -k https://cs3103.cs.unb.ca:37426/presents/1
+
+*only admin accounts can delete*
+
+curl -i -H "Content-Type: application/json" -X DELETE -b cookie-jar -k https://cs3103.cs.unb.ca:37426/users/3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
